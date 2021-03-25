@@ -1,5 +1,3 @@
-import logo from "./assets/media/logos/logo.svg";
-import "./assets/sass/App.scss";
 function List() {
   return (
     <div className="App">
