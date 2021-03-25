@@ -1,7 +1,5 @@
-// Styles
-import "./Navigation.scss";
 // Logo
-import logo from "../../../../assets/media/logos/sw_logo.png";
+import logo from "../../../assets/media/logos/sw_logo.png";
 // Router
 import { Link } from "react-router-dom";
 // Components

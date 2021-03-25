@@ -1,8 +1,8 @@
-import "./assets/sass/App.scss";
+import "./App.scss";
 // Router
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // Components
-import Nav from "./app/components/layout/navigation/Navigation";
+import Nav from "./app/components/layout/Navigation";
 import Home from "./app/pages/Home";
 import About from "./app/pages/About";
 import List from "./app/pages/List";
