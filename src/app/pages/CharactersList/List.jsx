@@ -25,16 +25,16 @@ function List() {
     let next = ROUTE;
 
     // Keep
+    setIsLoading(true);
     while (next !== null) {
-      setIsLoading(true);
       const response = await fetch(next);
       const data = await response.json();
 
       characters.push(...data.results);
       next = data.next;
-      setResponse(characters);
-      setIsLoading(false);
     }
+    setResponse(characters);
+    setIsLoading(false);
   };
 
   return (
