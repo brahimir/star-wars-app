@@ -1,15 +1,22 @@
 function Spinner(props) {
-  // Public properties
+  // Properties
   let color = `text-${props.color}`;
   let role = props.role;
+  let width = props.width;
+  let height = props.height;
 
-  if (!role) role = "status";
-  if (!color) color = "text-primary";
+  // Defaults
+  if (!props.role) role = "status";
+  if (!props.color) color = "text-primary";
+  if (!props.width) width = "2rem";
+  if (!props.height) height = "2rem";
 
-  // Set className for spinner styling.
+  // className for spinner styling.
   const className = `spinner-border ${color}`;
 
-  return <div className={className} role={role}></div>;
+  return (
+    <div className={className} role={role} style={((width = { width }), (height = { height }))}></div>
+  );
 }
 
 export default Spinner;
