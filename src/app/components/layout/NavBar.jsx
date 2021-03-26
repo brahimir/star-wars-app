@@ -4,7 +4,7 @@ import logo from "../../../assets/media/logos/sw_logo.png";
 import { Link } from "react-router-dom";
 // Components
 
-function Nav() {
+function NavBar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -48,4 +48,4 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default NavBar;
