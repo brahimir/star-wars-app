@@ -11,7 +11,7 @@ function List() {
   const ROUTE = "https://swapi.dev/api/people";
 
   // State variables.
-  const [arrayCharacters, setResponse] = useState([]);
+  const [arrayCharacters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch Characters on page load.
@@ -22,18 +22,18 @@ function List() {
   // Fetches the Characters.
   const fetchList = async () => {
     let characters = [];
-    let next = ROUTE;
+    let nextRoute = ROUTE;
 
-    // Keep
+    // Keep fetching the next page in SWAPI until no more pages exist (data.next === null).
     setIsLoading(true);
-    while (next !== null) {
-      const response = await fetch(next);
+    while (nextRoute !== null) {
+      const response = await fetch(nextRoute);
       const data = await response.json();
 
       characters.push(...data.results);
-      next = data.next;
+      nextRoute = data.next;
     }
-    setResponse(characters);
+    setCharacters(characters);
     setIsLoading(false);
   };
 
