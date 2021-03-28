@@ -102,12 +102,18 @@ function CharacterDetails({ match }) {
     setIsLoading(false);
   };
 
+  /**
+   * Handles navigation to next Character.
+   */
   function nextCharacter() {
     const nextID = parseInt(characterID) + 1;
     history.push(`/details/${nextID}`);
     fetchSingleCharacter(nextID);
   }
 
+  /**
+   * Handles navigation to previous Character.
+   */
   function previousCharacter() {
     const previousID = parseInt(characterID) - 1;
     history.push(`/details/${previousID}`);

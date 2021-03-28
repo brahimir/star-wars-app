@@ -1,8 +1,12 @@
 function Home() {
   return (
     <div className="container my-5">
-      <h1>About Page</h1>
-      <p>Hello from About!</p>
+      <h1 className="mb-5 text-warning">About</h1>
+      <p>
+        This is a simple application demonstrating the fetching of character data from
+        <a href="https://swapi.dev/"> SWAPI</a>, and displaying additional information on individual
+        character pages.
+      </p>
     </div>
   );
 }
