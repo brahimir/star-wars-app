@@ -3,19 +3,20 @@ import "./CharacterDetails.scss";
 // State/Effect
 import { useEffect, useState } from "react";
 // Router
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // Effects
 import Spinner from "../../../components/content/Spinner";
 
 function CharacterDetails({ match }) {
   let characterID = match.params.id;
 
+  // Router hisory.
+  const history = useHistory();
+
   // ! This is a temporary fix for the "Not found" when retrieving a character with an ID of 17.
   // ! Requests for Characters past an ID of 17 are also off by 1 because of this.
   // todo - come back to this and try and find a better workaround.
   if (characterID >= 17) characterID++;
-
-  const ROUTE = `https://swapi.dev/api/people/${characterID}`;
 
   // State variables.
   const [character, setCharacter] = useState({});
@@ -28,11 +29,13 @@ function CharacterDetails({ match }) {
 
   // Fetch Characters on page load.
   useEffect(() => {
-    fetchSingleCharacter();
+    fetchSingleCharacter(characterID);
   }, []);
 
   // Fetches the Characters.
-  const fetchSingleCharacter = async () => {
+  const fetchSingleCharacter = async (id) => {
+    const ROUTE = `https://swapi.dev/api/people/${id}`;
+
     setIsLoading(true);
     let response = await fetch(ROUTE);
     const characterData = await response.json();
@@ -99,12 +102,28 @@ function CharacterDetails({ match }) {
     setIsLoading(false);
   };
 
+  function nextCharacter() {
+    const nextID = parseInt(characterID) + 1;
+    console.log(nextID);
+    history.push(`/details/${nextID}`);
+    fetchSingleCharacter(nextID);
+  }
+
+  function previousCharacter() {
+    const previousID = parseInt(characterID) - 1;
+    console.log(previousID);
+    history.push(`/details/${previousID}`);
+    fetchSingleCharacter(previousID);
+  }
+
   return (
     <div className="container my-4">
       {/* begin:: Snapshot Navigation */}
       <div className="row snapshot-nav mb-4">
         <div className="col text-left">
-          <button className="btn btn-danger snapshot-nav-btn">Previous Character</button>
+          <button onClick={previousCharacter} className="btn btn-danger snapshot-nav-btn">
+            Previous Character
+          </button>
         </div>
         <div className="col">
           <Link to="/list" className="btn btn-primary snapshot-nav-btn">
@@ -112,7 +131,9 @@ function CharacterDetails({ match }) {
           </Link>
         </div>
         <div className="col text-right">
-          <button className="btn btn-success snapshot-nav-btn">Next Character</button>
+          <button onClick={nextCharacter} className="btn btn-success snapshot-nav-btn">
+            Next Character
+          </button>
         </div>
       </div>
       {/* end:: Snapshot Navigation */}
@@ -169,10 +190,21 @@ function CharacterDetails({ match }) {
               {/* end:: Character Eye Color */}
 
               {/* start:: Character Species */}
-              <div className="row">
-                <div className="col-2 font-weight-bold">Species:</div>
-                <div className="col-10">{character.species}</div>
-              </div>
+              {species.length > 0 && (
+                <div className="row">
+                  <div className="col-2 font-weight-bold">Species:</div>
+                  <div className="col-10">
+                    {species.map((specie, index) => {
+                      return (
+                        <span key={index}>
+                          &nbsp;{specie}
+                          {index !== species.length - 1 && <span>,</span>}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
               {/* end:: Character Species */}
 
               {/* start:: Character Birth Year */}
