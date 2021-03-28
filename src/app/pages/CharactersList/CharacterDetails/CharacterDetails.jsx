@@ -104,14 +104,12 @@ function CharacterDetails({ match }) {
 
   function nextCharacter() {
     const nextID = parseInt(characterID) + 1;
-    console.log(nextID);
     history.push(`/details/${nextID}`);
     fetchSingleCharacter(nextID);
   }
 
   function previousCharacter() {
     const previousID = parseInt(characterID) - 1;
-    console.log(previousID);
     history.push(`/details/${previousID}`);
     fetchSingleCharacter(previousID);
   }
