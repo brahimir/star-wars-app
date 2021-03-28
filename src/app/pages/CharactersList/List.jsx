@@ -41,8 +41,9 @@ function List() {
     <div className="container my-5">
       <h2 className="mb-5">Star Wars Characters</h2>
       {/* begin:: Character Table */}
-      {arrayCharacters.length > 0 && (
+      {!isLoading && (
         <table className="table table-dark">
+          {/* start:: Table Headers */}
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -52,6 +53,9 @@ function List() {
               <th scope="col">Mass</th>
             </tr>
           </thead>
+          {/* end:: Table Headers */}
+
+          {/* start:: Table Entries */}
           <tbody>
             {arrayCharacters.map((character, index) => {
               return (
@@ -69,6 +73,7 @@ function List() {
               );
             })}
           </tbody>
+          {/* end:: Table Entries */}
         </table>
       )}
       {/* end:: Character Table */}

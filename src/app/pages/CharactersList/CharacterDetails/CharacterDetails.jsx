@@ -31,32 +31,69 @@ function CharacterDetails({ match }) {
     let response = await fetch(ROUTE);
     const characterData = await response.json();
 
-    // todo Fetch Character Homeworld
-    response = await fetch(characterData.homeworld);
-    const characterHomeworld = await response.json();
+    // Fetch Character Homeworld
+    if (characterData.homeworld) {
+      let characterHomeworld;
 
-    // todo Fetch Character Films
-    // let characterFilms = [];
-    // characterData.films.forEach(element => {
-    //   response = await fetch(element);
-    //   characterFilms = await response.json();
-    // });
+      response = await fetch(characterData.homeworld);
+      characterHomeworld = await response.json();
 
-    // todo Fetch Character Species
-    // response = await fetch(characterData.species);
-    // const characterSpecies = await response.json();
+      characterData.homeworld = characterHomeworld.name;
+      setCharacter(characterData);
+    }
 
-    // todo Fetch Character Vehicles
-    // response = await fetch(characterData.vehicles);
-    // const characterVehicles = await response.json();
+    // Fetch Character Films
+    if (characterData.films.length) {
+      let characterFilms = [];
+      for (const filmPath of characterData.films) {
+        const response = await fetch(filmPath);
+        const film = await response.json();
 
-    // todo Fetch Character Starships
-    // response = await fetch(characterData.starships);
-    // const characterStarships = await response.json();
+        characterFilms.push(film.title);
+        characterData.films = characterFilms;
+        setCharacter(characterData);
+      }
+    }
 
-    characterData.homeworld = characterHomeworld.name;
+    // Fetch Character Species
+    if (characterData.species.length) {
+      let characterSpecies = [];
+      for (const speciesPath of characterData.species) {
+        const response = await fetch(speciesPath);
+        const specie = await response.json();
 
-    setCharacter(characterData);
+        characterSpecies.push(specie.name);
+        characterData.species = characterSpecies;
+        setCharacter(characterData);
+      }
+    }
+
+    // Fetch Character Vehicles
+    if (characterData.vehicles.length) {
+      let characterVehicles = [];
+      for (const vehiclesPath of characterData.vehicles) {
+        const response = await fetch(vehiclesPath);
+        const vehicle = await response.json();
+
+        characterVehicles.push(vehicle.name);
+        characterData.vehicles = characterVehicles;
+        setCharacter(characterData);
+      }
+    }
+
+    // Fetch Character Starships
+    if (characterData.starships.length) {
+      let characterStarships = [];
+      for (const starshipPath of characterData.starships) {
+        const response = await fetch(starshipPath);
+        const vehicle = await response.json();
+
+        characterStarships.push(vehicle.name);
+        characterData.starships = characterStarships;
+        setCharacter(characterData);
+      }
+    }
+
     setIsLoading(false);
   };
 
