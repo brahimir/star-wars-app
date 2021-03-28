@@ -11,6 +11,7 @@ function CharacterDetails({ match }) {
   let characterID = match.params.id;
 
   // ! This is a temporary fix for the "Not found" when retrieving a character with an ID of 17.
+  // ! Requests for Characters past an ID of 17 are also off by 1 because of this.
   // todo - come back to this and try and find a better workaround.
   if (characterID >= 17) characterID++;
 
@@ -19,6 +20,11 @@ function CharacterDetails({ match }) {
   // State variables.
   const [character, setCharacter] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  // Character metadata.
+  const [films, setFilms] = useState([]);
+  const [species, setSpecies] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [starships, setStarships] = useState([]);
 
   // Fetch Characters on page load.
   useEffect(() => {
@@ -44,53 +50,49 @@ function CharacterDetails({ match }) {
 
     // Fetch Character Films
     if (characterData.films.length) {
-      let characterFilms = [];
+      let films = [];
       for (const filmPath of characterData.films) {
         const response = await fetch(filmPath);
         const film = await response.json();
 
-        characterFilms.push(film.title);
-        characterData.films = characterFilms;
-        setCharacter(characterData);
+        films.push(film.title);
+        setFilms(films);
       }
     }
 
     // Fetch Character Species
     if (characterData.species.length) {
-      let characterSpecies = [];
+      let species = [];
       for (const speciesPath of characterData.species) {
         const response = await fetch(speciesPath);
         const specie = await response.json();
 
-        characterSpecies.push(specie.name);
-        characterData.species = characterSpecies;
-        setCharacter(characterData);
+        species.push(specie.name);
+        setSpecies(species);
       }
     }
 
     // Fetch Character Vehicles
     if (characterData.vehicles.length) {
-      let characterVehicles = [];
+      let vehicles = [];
       for (const vehiclesPath of characterData.vehicles) {
         const response = await fetch(vehiclesPath);
         const vehicle = await response.json();
 
-        characterVehicles.push(vehicle.name);
-        characterData.vehicles = characterVehicles;
-        setCharacter(characterData);
+        vehicles.push(vehicle.name);
+        setVehicles(vehicles);
       }
     }
 
     // Fetch Character Starships
     if (characterData.starships.length) {
-      let characterStarships = [];
+      let starships = [];
       for (const starshipPath of characterData.starships) {
         const response = await fetch(starshipPath);
         const vehicle = await response.json();
 
-        characterStarships.push(vehicle.name);
-        characterData.starships = characterStarships;
-        setCharacter(characterData);
+        starships.push(vehicle.name);
+        setStarships(starships);
       }
     }
 
@@ -203,14 +205,32 @@ function CharacterDetails({ match }) {
               {/* start:: Character Vehicles */}
               <div className="row">
                 <div className="col-2 font-weight-bold">Vehicles:</div>
-                <div className="col-10">{character.vehicles}</div>
+                <div className="col-10">
+                  {vehicles.map((vehicle, index) => {
+                    return (
+                      <span key={index}>
+                        &nbsp;{vehicle}
+                        {index !== vehicles.length - 1 && <span>,</span>}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
               {/* end:: Character Vehicles */}
 
               {/* start:: Character Starships */}
               <div className="row">
                 <div className="col-2 font-weight-bold">Starships:</div>
-                <div className="col-10">{character.starships}</div>
+                <div className="col-10">
+                  {starships.map((starship, index) => {
+                    return (
+                      <span key={index}>
+                        &nbsp;{starship}
+                        {index !== starships.length - 1 && <span>,</span>}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
               {/* end:: Character Starships */}
             </div>
@@ -221,7 +241,11 @@ function CharacterDetails({ match }) {
               <h4 className="text-left text-warning mb-3">Films</h4>
 
               <div className="row">
-                <div className="col font-weight-bold">{character.films}</div>
+                <div className="col">
+                  {films.map((film, index) => {
+                    return <div key={index}>&nbsp;{film}</div>;
+                  })}
+                </div>
               </div>
             </div>
             {/* start:: Character Films */}
@@ -229,7 +253,6 @@ function CharacterDetails({ match }) {
           </div>
         </div>
       )}
-
       {/* end:: Character Card */}
 
       {/* begin:: Loading Spinner */}
