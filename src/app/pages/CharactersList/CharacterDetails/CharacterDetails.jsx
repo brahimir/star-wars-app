@@ -13,8 +13,6 @@ function CharacterDetails({ match }) {
   // Router hisory.
   const history = useHistory();
 
-  // ! This is a temporary fix for the "Not found" when retrieving a character with an ID of 17.
-
   // State variables.
   const [character, setCharacter] = useState({});
   const [isLoading, setIsLoading] = useState(false);
