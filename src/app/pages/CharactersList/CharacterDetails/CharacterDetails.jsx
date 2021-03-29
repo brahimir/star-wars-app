@@ -251,41 +251,47 @@ function CharacterDetails({ match }) {
             {/* end:: General Information */}
 
             {/* begin:: Assets */}
-            <div className="card-section my-4 text-left">
-              <h4 className="text-left text-warning mb-3">Assets</h4>
+            {vehicles.length > 0 && starships.length > 0 && (
+              <div className="card-section my-4 text-left">
+                <h4 className="text-left text-warning mb-3">Assets</h4>
 
-              {/* start:: Character Vehicles */}
-              <div className="row">
-                <div className="col-2 font-weight-bold">Vehicles:</div>
-                <div className="col-10">
-                  {vehicles.map((vehicle, index) => {
-                    return (
-                      <span key={index}>
-                        &nbsp;{vehicle}
-                        {index !== vehicles.length - 1 && <span>,</span>}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-              {/* end:: Character Vehicles */}
+                {/* start:: Character Vehicles */}
+                {vehicles.length > 0 && (
+                  <div className="row">
+                    <div className="col-2 font-weight-bold">Vehicles:</div>
+                    <div className="col-10">
+                      {vehicles.map((vehicle, index) => {
+                        return (
+                          <span key={index}>
+                            &nbsp;{vehicle}
+                            {index !== vehicles.length - 1 && <span>,</span>}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+                {/* end:: Character Vehicles */}
 
-              {/* start:: Character Starships */}
-              <div className="row">
-                <div className="col-2 font-weight-bold">Starships:</div>
-                <div className="col-10">
-                  {starships.map((starship, index) => {
-                    return (
-                      <span key={index}>
-                        &nbsp;{starship}
-                        {index !== starships.length - 1 && <span>,</span>}
-                      </span>
-                    );
-                  })}
-                </div>
+                {/* start:: Character Starships */}
+                {starships.length > 0 && (
+                  <div className="row">
+                    <div className="col-2 font-weight-bold">Starships:</div>
+                    <div className="col-10">
+                      {starships.map((starship, index) => {
+                        return (
+                          <span key={index}>
+                            &nbsp;{starship}
+                            {index !== starships.length - 1 && <span>,</span>}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+                {/* end:: Character Starships */}
               </div>
-              {/* end:: Character Starships */}
-            </div>
+            )}
             {/* end:: Assets */}
 
             {/* begin:: Character Films */}
