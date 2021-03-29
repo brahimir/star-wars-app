@@ -16,7 +16,7 @@ function CharacterDetails({ match }) {
   // ! This is a temporary fix for the "Not found" when retrieving a character with an ID of 17.
   // ! Requests for Characters past an ID of 17 are also off by 1 because of this.
   // todo - come back to this and try and find a better workaround.
-  if (characterID >= 17) characterID++;
+  if (characterID === 17) characterID++;
 
   // State variables.
   const [character, setCharacter] = useState({});
@@ -106,7 +106,11 @@ function CharacterDetails({ match }) {
    * Handles navigation to next Character.
    */
   function nextCharacter() {
-    const nextID = parseInt(characterID) + 1;
+    let nextID = parseInt(characterID) + 1;
+
+    // ! Temporary fix for missing index at ID 17
+    if (nextID === 17) nextID = 18;
+
     history.push(`/details/${nextID}`);
     fetchSingleCharacter(nextID);
   }
@@ -115,7 +119,11 @@ function CharacterDetails({ match }) {
    * Handles navigation to previous Character.
    */
   function previousCharacter() {
-    const previousID = parseInt(characterID) - 1;
+    let previousID = parseInt(characterID) - 1;
+
+    // ! Temporary fix for missing index at ID 17
+    if (previousID === 17) previousID = 16;
+
     history.push(`/details/${previousID}`);
     fetchSingleCharacter(previousID);
   }
@@ -125,7 +133,11 @@ function CharacterDetails({ match }) {
       {/* begin:: Snapshot Navigation */}
       <div className="row snapshot-nav mb-4">
         <div className="col text-left">
-          <button onClick={previousCharacter} className="btn btn-danger snapshot-nav-btn">
+          <button
+            disabled={characterID <= 1}
+            onClick={previousCharacter}
+            className="btn btn-danger snapshot-nav-btn"
+          >
             Previous Character
           </button>
         </div>
@@ -135,7 +147,11 @@ function CharacterDetails({ match }) {
           </Link>
         </div>
         <div className="col text-right">
-          <button onClick={nextCharacter} className="btn btn-success snapshot-nav-btn">
+          <button
+            disabled={characterID >= 82}
+            onClick={nextCharacter}
+            className="btn btn-success snapshot-nav-btn"
+          >
             Next Character
           </button>
         </div>
