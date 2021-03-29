@@ -62,7 +62,11 @@ function List() {
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
                   <td>
-                    <Link to={`/details/${index + 1}`} className="table-item">
+                    {/* ! This is a temporary fix for the "Not found" when retrieving a character with an ID of 17 */}
+                    <Link
+                      to={index + 1 === 17 ? `/details/${index + 2}` : `/details/${index + 1}`}
+                      className="table-item"
+                    >
                       <u>{character.name}</u>
                     </Link>
                   </td>

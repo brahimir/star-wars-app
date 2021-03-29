@@ -14,9 +14,6 @@ function CharacterDetails({ match }) {
   const history = useHistory();
 
   // ! This is a temporary fix for the "Not found" when retrieving a character with an ID of 17.
-  // ! Requests for Characters past an ID of 17 are also off by 1 because of this.
-  // todo - come back to this and try and find a better workaround.
-  if (characterID === 17) characterID++;
 
   // State variables.
   const [character, setCharacter] = useState({});
@@ -231,7 +228,7 @@ function CharacterDetails({ match }) {
                     {species.map((specie, index) => {
                       return (
                         <span key={index}>
-                          {specie}
+                          &nbsp;{specie}
                           {index !== species.length - 1 && <span>,</span>}
                         </span>
                       );
