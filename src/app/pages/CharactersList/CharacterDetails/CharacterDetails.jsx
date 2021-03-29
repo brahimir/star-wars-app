@@ -21,6 +21,7 @@ function CharacterDetails({ match }) {
   // State variables.
   const [character, setCharacter] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
   // Character metadata.
   const [films, setFilms] = useState([]);
   const [species, setSpecies] = useState([]);
@@ -35,6 +36,9 @@ function CharacterDetails({ match }) {
   // Fetches the Characters.
   const fetchSingleCharacter = async (id) => {
     const ROUTE = `https://swapi.dev/api/people/${id}`;
+
+    // Reset Character metadata states.
+    resetCharacterMetadataStates();
 
     setIsLoading(true);
     let response = await fetch(ROUTE);
@@ -101,6 +105,16 @@ function CharacterDetails({ match }) {
 
     setIsLoading(false);
   };
+
+  /**
+   * Resets the states for Character Metadata.
+   */
+  function resetCharacterMetadataStates() {
+    setFilms([]);
+    setSpecies([]);
+    setVehicles([]);
+    setStarships([]);
+  }
 
   /**
    * Handles navigation to next Character.
