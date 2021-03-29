@@ -231,7 +231,7 @@ function CharacterDetails({ match }) {
                     {species.map((specie, index) => {
                       return (
                         <span key={index}>
-                          &nbsp;{specie}
+                          {specie}
                           {index !== species.length - 1 && <span>,</span>}
                         </span>
                       );
